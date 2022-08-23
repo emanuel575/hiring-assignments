@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Flask, make_response
 
 import requests
@@ -30,5 +29,3 @@ def metrics():
 @app.route('/health',methods=['GET'])
 def health():
     return {'alive': True}
-
-app.run(host='0.0.0.0')
