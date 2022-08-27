@@ -17,8 +17,9 @@ COPY *.py ./
 ENV FLASK_DEBUG="false" \
     FLASK_APP="wsgi.py" \
     USER="python" \
-    PATH="${PATH}:/home/python/.local/bin"
+    PATH="${PATH}:/home/python/.local/bin" \
+    DUMMY_PNG_URL="http://localhost:3000"
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--workers", "2", "-b", "0.0.0.0:5000","wsgi:app"]
+CMD ["gunicorn","-b", "0.0.0.0:5000","wsgi:app"]

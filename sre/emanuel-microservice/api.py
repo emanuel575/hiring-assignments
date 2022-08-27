@@ -2,6 +2,7 @@ from flask import Flask, make_response
 
 import requests
 from prometheus_client import Counter, generate_latest
+import os
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -15,7 +16,7 @@ REQUESTS = Counter('server_requests_total', 'Total number of requests to this we
 def home(id):
     REQUESTS.inc()
     try:
-        r = requests.get(f"http://localhost:3000/{id}")
+        r = requests.get(f"{os.getenv('DUMMY_PNG_URL')}/{id}")
         response = make_response(r.content)
         response.headers['Content-Type'] = r.headers['Content-Type']
         return response
