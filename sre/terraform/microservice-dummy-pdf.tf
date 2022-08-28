@@ -11,28 +11,28 @@ resource "kubernetes_deployment_v1" "dummy-pdf-dep" {
 
     selector {
       match_labels = {
-        "dummy-pdf" = "dummy-go-app"
+        app = "dummy-go-app"
       }
     }
 
     template {
       metadata {
         labels = {
-          "dummy-pdf" = "dummy-go-app"
+          app = "dummy-go-app"
         }
       }
 
       spec {
         container {
-          image = "dummy-pdf-or-png"
-          name  = "dummygoapp"
+          image             = "dummy-pdf-or-png"
+          name              = "dummygoapp"
           image_pull_policy = "IfNotPresent"
-          resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "256Mi"
-            }
-          }
+          # resources {
+          #   limits = {
+          #     cpu    = "0.5"
+          #     memory = "256Mi"
+          #   }
+          # }
         }
 
       }
@@ -42,18 +42,17 @@ resource "kubernetes_deployment_v1" "dummy-pdf-dep" {
 
 resource "kubernetes_service_v1" "dummy-pdf-svc" {
   metadata {
-    name = "dummy-pdf-service"
+    name = "dummy-pdf-svc"
   }
 
   spec {
     selector = {
       app = kubernetes_deployment_v1.dummy-pdf-dep.metadata.0.labels.app
     }
-    type = "NodePort"
+    type = "ClusterIP"
     port {
-      port        = 9000  // cluster internal port
-      target_port = 3000  // port that application uses
-      node_port   = 30123 // port exposed outside cluster
+      port        = 9000 // cluster internal port
+      target_port = 3000 // port that application uses
     }
   }
 
