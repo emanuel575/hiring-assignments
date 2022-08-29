@@ -40,7 +40,11 @@ resource "kubernetes_deployment_v1" "python-api-dep" {
         #   }
           env {
             name  = "DUMMY_PNG_URL"
-            value = "http://dummy-pdf-svc"
+            value = "http://dummy-pdf-svc:9000"
+          }
+          env{
+            name = "PYTHONUNBUFFERED"
+            value = "TRUE"
           }
         }
 
