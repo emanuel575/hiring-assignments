@@ -29,9 +29,9 @@ resource "kubernetes_deployment_v1" "python-api-dep" {
 
       spec {
         container {
-          image             = "pythonapi"
+          image             = "pythonapi:latest"
           name              = "python-api"
-          image_pull_policy = "Never"
+          image_pull_policy = "IfNotPresent"
         #   resources {
         #     limits = {
         #       cpu    = "0.5"

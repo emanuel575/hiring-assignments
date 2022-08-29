@@ -22,4 +22,4 @@ ENV FLASK_DEBUG="false" \
 
 EXPOSE 5000
 
-CMD ["gunicorn","-b", "0.0.0.0:5000","wsgi:app"]
+ENTRYPOINT ["gunicorn","-b", "0.0.0.0:5000","--timeout=120", "--workers=4","wsgi:app"]

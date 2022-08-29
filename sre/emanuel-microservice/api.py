@@ -16,11 +16,14 @@ REQUESTS = Counter('server_requests_total', 'Total number of requests to this we
 def home(id):
     REQUESTS.inc()
     try:
+        print(f"Requests will be at: {os.getenv('DUMMY_PNG_URL')}/{id}")
         r = requests.get(f"{os.getenv('DUMMY_PNG_URL')}/{id}")
         response = make_response(r.content)
         response.headers['Content-Type'] = r.headers['Content-Type']
+        print("Done request")
         return response
     except Exception as e:
+        print(f"Exceptions: {e}")
         return f'{e}'
         
 @app.route('/metrics',methods=['GET'])

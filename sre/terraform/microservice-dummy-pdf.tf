@@ -24,9 +24,9 @@ resource "kubernetes_deployment_v1" "dummy-pdf-dep" {
 
       spec {
         container {
-          image             = "dummy-pdf-or-png"
+          image             = "dummy-pdf-or-png:latest"
           name              = "dummygoapp"
-          image_pull_policy = "IfNotPresent"
+          image_pull_policy = "Never"
           # resources {
           #   limits = {
           #     cpu    = "0.5"
